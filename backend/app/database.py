@@ -1,7 +1,11 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import DeclarativeBase, sessionmaker
+import os
 
-DATABASE_URL = "postgresql+psycopg://tripforge:tripforge_dev@localhost:5432/tripforge"
+DATABASE_URL = os.getenv(
+    "DATABASE_URL",
+    "postgresql+psycopg://tripforge:tripforge_dev@localhost:5432/tripforge",
+)
 
 engine = create_engine(DATABASE_URL)
 
