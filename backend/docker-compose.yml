@@ -1,0 +1,27 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: tripforge-postgres
+    environment:
+      POSTGRES_USER: tripforge
+      POSTGRES_PASSWORD: tripforge_dev
+      POSTGRES_DB: tripforge
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  api:
+    build: .
+    container_name: tripforge-api
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql+psycopg://tripforge:tripforge_dev@postgres:5432/tripforge
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
+    external: true
+    name: tripforge-postgres-data
