@@ -46,6 +46,7 @@ def test_destination():
     db.add(destination)
     db.commit()
     db.refresh(destination)
+    
 
     yield destination
 

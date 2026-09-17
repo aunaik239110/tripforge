@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata: 
+  name: tripforge-api
+  namespace: tripforge
+
+
+spec: 
+  replicas: 1
+
+
+  selector:
+    matchLabels:
+      app: tripforge-api
+
+
+
+  template:
+    metadata:
+      labels:
+        app: tripforge-api
+
+
+
+
+    spec:
+      containers:
+        - name: tripforge-api
+          image: tripforge-api:0.1.0
+          imagePullPolicy: IfNotPresent
+
+
+          ports:
+             - containerPort: 8000
+
+          env:
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: postgres-secret
+                key: POSTGRES_USER
+
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: postgres-secret
+                key: POSTGRES_PASSWORD
+
+          - name: POSTGRES_DB
+            valueFrom:
+              secretKeyRef:
+                name: postgres-secret
+                key: POSTGRES_DB
+
+          - name: DATABASE_URL
+            value: "postgresql+psycopg://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@postgres:5432/$(POSTGRES_DB)"
+                  
+
+  
