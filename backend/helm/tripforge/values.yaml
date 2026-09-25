@@ -1,0 +1,16 @@
+replicaCount: 1
+
+image:
+  repository: tripforge-api
+  tag: "0.1.0"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8000
+
+postgres:
+  image:
+    repository: postgres
+    tag: "16"
+  storage: 5Gi

@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: tripforge-api
+  namespace: tripforge
+
+spec:
+  selector:
+    app: tripforge-api
+
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: 8000
+
+  type: {{ .Values.service.type }}
