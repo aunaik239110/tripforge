@@ -34,3 +34,7 @@ htmlcov/
 
 # Docker
 *.pid
+
+backend/backend.code-workspace
+
+.terraform/
